@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveLegal - Traffic Compliance and Smart Challan Advisor</title>
+    <meta name="description" content="A comprehensive, offline-first dashboard for location-specific traffic regulations, smart fine calculators, and cross-border road compliance alerts.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body class="dark-theme">
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-scale-balanced logo-icon"></i>
+                <span class="logo-text">Drive<span class="highlight">Legal</span></span>
+            </div>
+            <div class="nav-status">
+                <div id="sync-status" class="status-badge sync-active">
+                    <i class="fa-solid fa-arrows-rotate spinner"></i>
+                    <span>Synchronizing...</span>
+                </div>
+                <div id="network-status" class="status-badge online">
+                    <i class="fa-solid fa-wifi"></i>
+                    <span>Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Hero section with global overview -->
+        <section class="dashboard-hero">
+            <div class="hero-content">
+                <h1>Smart Traffic Law & Challan System</h1>
+                <p>Ensure compliance with location-specific road regulations, calculate potential penalties, and analyze route compliance across regions—fully operational offline.</p>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: Location, Documents & System Notes -->
+            <div class="grid-column">
+                
+                <!-- Section 1: Geo-Fenced Location Selector -->
+                <div class="card glassmorphism location-card" id="location-sec">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-location-crosshairs icon-accent"></i>
+                            <h2>Geo-Fenced Region Selector</h2>
+                        </div>
+                        <span class="badge badge-accent">Live Lookup</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="control-group">
+                            <label for="country-selector">Select Country</label>
+                            <div class="select-wrapper">
+                                <select id="country-selector">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="state-selector">Select State / Region</label>
+                            <div class="select-wrapper">
+                                <select id="state-selector">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="gps-simulator">
+                            <div class="simulator-header">
+                                <span><i class="fa-solid fa-satellite"></i> GPS Position Simulator</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="gps-toggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="gps-coords" id="gps-coords-display">
+                                GPS Tracking: Disabled (Using manual selection)
+                            </div>
+                            <div class="gps-buttons" style="display: none;" id="gps-buttons-container">
+                                <button type="button" class="btn btn-sm btn-outline" data-state="DL" data-country="IN">Simulate Delhi (IN)</button>
+                                <button type="button" class="btn btn-sm btn-outline" data-state="KA" data-country="IN">Simulate Karnataka (IN)</button>
+                                <button type="button" class="btn btn-sm btn-outline" data-state="CA" data-country="US">Simulate California (US)</button>
+                                <button type="button" class="btn btn-sm btn-outline" data-state="NY" data-country="US">Simulate New York (US)</button>
+                            </div>
+                        </div>
+
+                        <div class="region-info-pane" id="region-info-pane">
+                            <!-- Populated dynamically -->
+                            <div class="speed-limits-container">
+                                <div class="limit-badge">
+                                    <span class="limit-label">Highway</span>
+                                    <span class="limit-value" id="limit-highway">--</span>
+                                </div>
+                                <div class="limit-badge">
+                                    <span class="limit-label">Urban</span>
+                                    <span class="limit-value" id="limit-urban">--</span>
+                                </div>
+                                <div class="limit-badge">
+                                    <span class="limit-label">Residential</span>
+                                    <span class="limit-value" id="limit-residential">--</span>
+                                </div>
+                            </div>
+                            <div class="local-notes-box">
+                                <h4><i class="fa-solid fa-circle-info"></i> Enforcement Notes:</h4>
+                                <p id="local-notes-text">Select a location to see local guidelines.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Document Compliance Locker (Innovative Idea) -->
+                <div class="card glassmorphism doc-locker-card" id="document-locker-sec">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-folder-closed icon-accent"></i>
+                            <h2>Digital Document Compliance</h2>
+                        </div>
+                        <span class="badge badge-success">Local Secure</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="section-desc">Store your document dates. We check for compliance and warn you about region-specific fines before you drive.</p>
+                        
+                        <form id="doc-locker-form" class="doc-form">
+                            <div class="doc-input-grid">
+                                <div class="doc-field">
+                                    <label><i class="fa-solid fa-id-card"></i> Driving License Expiry</label>
+                                    <input type="date" id="doc-license-expiry" class="doc-date-picker">
+                                    <div class="doc-status-msg" id="status-license">No Date Provided</div>
+                                </div>
+                                <div class="doc-field">
+                                    <label><i class="fa-solid fa-shield-halved"></i> Insurance Expiry</label>
+                                    <input type="date" id="doc-insurance-expiry" class="doc-date-picker">
+                                    <div class="doc-status-msg" id="status-insurance">No Date Provided</div>
+                                </div>
+                                <div class="doc-field">
+                                    <label><i class="fa-solid fa-leaf"></i> Emissions / PUC Expiry</label>
+                                    <input type="date" id="doc-emissions-expiry" class="doc-date-picker">
+                                    <div class="doc-status-msg" id="status-emissions">No Date Provided</div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-3">
+                                <i class="fa-solid fa-floppy-disk"></i> Save Compliance Records
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Calculator & Cross-Border Advisor -->
+            <div class="grid-column">
+
+                <!-- Section 3: Smart Challan Calculator -->
+                <div class="card glassmorphism calculator-card" id="challan-calculator-sec">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-calculator icon-accent"></i>
+                            <h2>Automated Challan Calculator</h2>
+                        </div>
+                        <span class="badge badge-warning" id="calc-region-badge">No Region Selected</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vehicle-selector-group">
+                            <span class="selector-label">Vehicle Type:</span>
+                            <div class="vehicle-options">
+                                <button type="button" class="vehicle-btn active" data-type="two_wheeler">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                    <span>2-Wheeler</span>
+                                </button>
+                                <button type="button" class="vehicle-btn" data-type="car">
+                                    <i class="fa-solid fa-car"></i>
+                                    <span>4-Wheeler (Car)</span>
+                                </button>
+                                <button type="button" class="vehicle-btn" data-type="commercial">
+                                    <i class="fa-solid fa-truck"></i>
+                                    <span>Commercial</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="violations-grid">
+                            <h3>Select Traffic Violations</h3>
+                            
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="violation-checkbox" value="speeding">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>Speeding</strong>
+                                    <small>Exceeding defined speed limit</small>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container" id="helmet-seatbelt-container">
+                                <input type="checkbox" class="violation-checkbox" value="no_helmet" id="helmet-seatbelt-checkbox">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label" id="helmet-seatbelt-label">
+                                    <strong>No Helmet</strong>
+                                    <small>Rider/Pillion rider without protective headgear</small>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="violation-checkbox" value="drunk_driving">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>Drunk Driving</strong>
+                                    <small>Driving under the influence of alcohol/drugs</small>
+                                </span>
+                            </label>
+
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="violation-checkbox" value="red_light">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">
+                                    <strong>Red Light Violation</strong>
+                                    <small>Jumping traffic signals / stop signs</small>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Document Compliance inclusion checkbox -->
+                        <div class="include-expired-docs">
+                            <h4>Document Penalties (Auto-detected)</h4>
+                            <div class="auto-violation-row" id="auto-lic-row">
+                                <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                                <span>No active Driver's License: <strong class="fine-val" id="auto-lic-fine">--</strong></span>
+                            </div>
+                            <div class="auto-violation-row" id="auto-ins-row">
+                                <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                                <span>No valid Insurance policy: <strong class="fine-val" id="auto-ins-fine">--</strong></span>
+                            </div>
+                            <div class="auto-violation-row" id="auto-emi-row">
+                                <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                                <span>Expired Emissions certificate: <strong class="fine-val" id="auto-emi-fine">--</strong></span>
+                            </div>
+                            <div class="all-docs-valid" id="all-docs-valid-msg">
+                                <i class="fa-solid fa-circle-check text-success"></i>
+                                <span>All digital locker documents are valid. No penalty additions!</span>
+                            </div>
+                        </div>
+
+                        <!-- Bill Calculation Card -->
+                        <div class="receipt-card">
+                            <div class="receipt-header">
+                                <span class="receipt-title">Fine Breakdown Receipt</span>
+                                <span id="receipt-date">May 2026</span>
+                            </div>
+                            <div class="receipt-items" id="receipt-items-container">
+                                <div class="empty-receipt-msg">No violations selected</div>
+                            </div>
+                            <div class="receipt-divider"></div>
+                            <div class="receipt-total-row">
+                                <span>Total Estimated Fine:</span>
+                                <span class="total-amount" id="receipt-total">0.00</span>
+                            </div>
+                            <p class="receipt-disclaimer">*Calculated rates correspond to standard fines. Local court adjudication might alter actual liability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Cross-Border Route Rule Advisor (Innovative Idea) -->
+                <div class="card glassmorphism route-card" id="route-advisor-sec">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-route icon-accent"></i>
+                            <h2>Cross-Border Route Advisor</h2>
+                        </div>
+                        <span class="badge badge-accent">Smart Compare</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="section-desc">Traveling across regions? Compare speed limits and rule disparities along your journey to avoid surprises.</p>
+                        
+                        <div class="route-selectors-grid">
+                            <div class="control-group">
+                                <label>Origin Region</label>
+                                <div class="route-select-row">
+                                    <div class="select-wrapper">
+                                        <select id="route-origin-country">
+                                            <!-- Dynamically filled -->
+                                        </select>
+                                    </div>
+                                    <div class="select-wrapper">
+                                        <select id="route-origin-state">
+                                            <!-- Dynamically filled -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="route-arrow-icon">
+                                <i class="fa-solid fa-right-long"></i>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Destination Region</label>
+                                <div class="route-select-row">
+                                    <div class="select-wrapper">
+                                        <select id="route-dest-country">
+                                            <!-- Dynamically filled -->
+                                        </select>
+                                    </div>
+                                    <div class="select-wrapper">
+                                        <select id="route-dest-state">
+                                            <!-- Dynamically filled -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-outline btn-block mt-3" id="btn-compare-route">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Route Differences
+                        </button>
+
+                        <div class="route-analysis-results" id="route-analysis-results" style="display: none;">
+                            <h3>Disparity Analysis</h3>
+                            <div class="timeline" id="route-differences-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 DriveLegal. Built for safe and legally compliant journeys.</p>
+            <div class="footer-links">
+                <a href="#location-sec">Location Lookup</a>
+                <a href="#challan-calculator-sec">Calculator</a>
+                <a href="#document-locker-sec">Document Locker</a>
+                <a href="#route-advisor-sec">Route Advisor</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+{
+  "countries": {
+    "IN": {
+      "name": "India",
+      "currency": "INR",
+      "currency_symbol": "₹",
+      "states": {
+        "DL": {
+          "name": "Delhi",
+          "fines": {
+            "speeding": 2000,
+            "no_helmet": 1000,
+            "drunk_driving": 10000,
+            "no_license": 5000,
+            "no_insurance": 2000,
+            "expired_pollution": 10000,
+            "seatbelt": 1000,
+            "red_light": 5000
+          },
+          "mandatory_documents": {
+            "driving_license": "Driving License",
+            "registration_certificate": "Registration Certificate (RC)",
+            "insurance_policy": "Vehicle Insurance Policy",
+            "puc_certificate": "Pollution Under Control (PUC) Certificate"
+          },
+          "speed_limits": {
+            "highway": 70,
+            "urban": 50,
+            "residential": 30
+          },
+          "local_notes": "Pillion riders on two-wheelers must wear a helmet. High-security registration plates (HSRP) are mandatory. Severe fines apply for driving during pollution-ban periods (GRAP stage restrictions)."
+        },
+        "KA": {
+          "name": "Karnataka",
+          "fines": {
+            "speeding": 1000,
+            "no_helmet": 500,
+            "drunk_driving": 10000,
+            "no_license": 5000,
+            "no_insurance": 2000,
+            "expired_pollution": 2000,
+            "seatbelt": 500,
+            "red_light": 500
+          },
+          "mandatory_documents": {
+            "driving_license": "Driving License",
+            "registration_certificate": "Registration Certificate (RC)",
+            "insurance_policy": "Vehicle Insurance Policy",
+            "puc_certificate": "Pollution Under Control (PUC) Certificate"
+          },
+          "speed_limits": {
+            "highway": 80,
+            "urban": 60,
+            "residential": 40
+          },
+          "local_notes": "Strict checking for modified exhausts and high-decibel horns. Digital documents shown on DigiLocker or mParivahan apps are legally valid."
+        },
+        "MH": {
+          "name": "Maharashtra",
+          "fines": {
+            "speeding": 2000,
+            "no_helmet": 500,
+            "drunk_driving": 10000,
+            "no_license": 5000,
+            "no_insurance": 2000,
+            "expired_pollution": 2000,
+            "seatbelt": 200,
+            "red_light": 500
+          },
+          "mandatory_documents": {
+            "driving_license": "Driving License",
+            "registration_certificate": "Registration Certificate (RC)",
+            "insurance_policy": "Vehicle Insurance Policy",
+            "puc_certificate": "Pollution Under Control (PUC) Certificate"
+          },
+          "speed_limits": {
+            "highway": 80,
+            "urban": 50,
+            "residential": 30
+          },
+          "local_notes": "CCTV-based automated speed cameras and e-challan systems are highly active on the Mumbai-Pune Expressway and major urban roads. Rear seatbelts are mandatory in Mumbai."
+        }
+      }
+    },
+    "US": {
+      "name": "United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "states": {
+        "CA": {
+          "name": "California",
+          "fines": {
+            "speeding": 238,
+            "no_helmet": 197,
+            "drunk_driving": 1000,
+            "no_license": 250,
+            "no_insurance": 480,
+            "expired_pollution": 250,
+            "seatbelt": 162,
+            "red_light": 490
+          },
+          "mandatory_documents": {
+            "driving_license": "California Driver's License",
+            "registration_card": "Vehicle Registration Card",
+            "financial_responsibility": "Proof of Financial Responsibility (Insurance)"
+          },
+          "speed_limits": {
+            "highway": 65,
+            "urban": 35,
+            "residential": 25
+          },
+          "local_notes": "California has strict Smog Check requirements. Hands-free cellphone usage is strictly enforced; holding a phone while driving triggers a heavy fine. Helmet is mandatory for all motorcycle riders."
+        },
+        "NY": {
+          "name": "New York",
+          "fines": {
+            "speeding": 150,
+            "no_helmet": 100,
+            "drunk_driving": 500,
+            "no_license": 300,
+            "no_insurance": 1500,
+            "expired_pollution": 100,
+            "seatbelt": 50,
+            "red_light": 150
+          },
+          "mandatory_documents": {
+            "driving_license": "New York State Driver's License",
+            "registration_certificate": "Registration Certificate",
+            "insurance_card": "NYS Insurance Identification Card",
+            "inspection_sticker": "Annual Vehicle Inspection Sticker"
+          },
+          "speed_limits": {
+            "highway": 55,
+            "urban": 30,
+            "residential": 25
+          },
+          "local_notes": "Vehicles registered in NY must pass an annual safety and emissions inspection. Speed limit in New York City is 25 mph unless otherwise posted."
+        },
+        "TX": {
+          "name": "Texas",
+          "fines": {
+            "speeding": 200,
+            "no_helmet": 150,
+            "drunk_driving": 2000,
+            "no_license": 200,
+            "no_insurance": 350,
+            "expired_pollution": 150,
+            "seatbelt": 200,
+            "red_light": 75
+          },
+          "mandatory_documents": {
+            "driving_license": "Texas Driver's License",
+            "registration_receipt": "Vehicle Registration Receipt",
+            "financial_responsibility_card": "Texas Liability Card (Insurance)"
+          },
+          "speed_limits": {
+            "highway": 75,
+            "urban": 40,
+            "residential": 30
+          },
+          "local_notes": "Texas speed limits can go up to 85 mph on designated toll roads. Motorcycle helmets are optional for riders over 21 who have completed a safety course or carry medical insurance."
+        }
+      }
+    }
+  }
+}
